@@ -1,7 +1,6 @@
 import sys
 from datetime import datetime
 from flask import render_template as render, request, jsonify, redirect, url_for
-from sqlalchemy.sql.elements import Null
 from app.database.database import *
 
 class Auth:
@@ -25,12 +24,13 @@ class Auth:
         email = request.form['txtEmail']
         password = request.form['txtPassword']
         cellphone = request.form['txtCelphone']
+        phone = request.form['txtPhone']
         isadmin =  False
         avatar = 'https://res.cloudinary.com/dqmbrjl7jfs/image/upload/v1640009274/aux/noimage_b9edhb.jpg'
         estado = request.form['txtEstado']
         createdat = datetime.now().strftime('%x')
         
-        newUser = User(cedula, nombres, apellidos, username, email, password, cellphone, isadmin, avatar, estado, createdat)
+        newUser = User(cedula, nombres, apellidos, username, email, password, cellphone, phone, isadmin, avatar, estado, createdat)
         newUser.onGetSetPassword(password)
         db.session.add(newUser)
         db.session.commit()

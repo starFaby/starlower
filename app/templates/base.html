@@ -4,6 +4,7 @@
     <link rel="stylesheet" href="{{url_for('static', filename='css/main.css')}}">
     <link rel="stylesheet" href="{{url_for('static', filename='css/imagehover/css/demo-page.css')}}">
     <link rel="stylesheet" href="{{url_for('static', filename='css/imagehover/css/imagehover.css')}}">
+    {{ fontawesome_html()}}
     <link rel="stylesheet" href="{{url_for('static', filename='node_modules/bootstrap/dist/css/bootstrap.min.css')}}">
     <link rel="stylesheet" href="{{url_for('static', filename='node_modules/animate.css/animate.min.css')}}">
     <title>
@@ -22,6 +23,9 @@
         {% include 'navbar.html' %}
     {% endblock %}
 
+    {% block modal %}
+    {% endblock %}
+
     {% block content %}
     {% endblock %}
     
@@ -31,8 +35,11 @@
 
     {% block scripts %}
         {{ super() }}
+        <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.5/dist/umd/popper.min.js" integrity="sha384-Xe+8cL9oJa6tN/veChSP7q+mnSPaj5Bcu9mPX5F5xIGE0DVittaqT5lorf0EI7Vk" crossorigin="anonymous"></script>
         <script src="{{url_for('static', filename='node_modules/bootstrap/dist/js/bootstrap.min.js')}}"></script>
         <script src="{{url_for('static', filename='node_modules/sweetalert2/dist/sweetalert2.all.min.js')}}"></script>
+        <script src="{{url_for('static', filename='node_modules/jquery/dist/jquery.min.js')}}"></script>
+        <script src="{{url_for('static', filename='node_modules/jquery/dist/jquery.slim.min.js')}}"></script>
         <script src="{{url_for('static', filename='js/main.js')}}"></script>
         <script src="{{url_for('static', filename='css/main.js')}}"></script>
         {% with messages = get_flashed_messages(with_categories=True) %}

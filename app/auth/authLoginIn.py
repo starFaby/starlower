@@ -21,7 +21,7 @@ class AuthLoginIn:
                 flash('Password Incorrecto', category='info')
                 return render('auth/login.html')
         else:
-            flash('Usuario y password Incorrecto', category='error')
+            flash('Usuario incorrecto', category='error')
             return render('auth/login.html')
         
         

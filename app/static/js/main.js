@@ -20,6 +20,13 @@ function main() {
         $(this).children('.children').slideToggle();
     });
 }
+
+/*
+$(document).ready(function(){
+    $("#exampleModal").modal("show")
+})
+
+*/
 const getTitleMessageFromCategory = category => {
     const titles = {
         'success': 'Bien Hecho',

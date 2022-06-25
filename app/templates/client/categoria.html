@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+{% block title %}
+{{ super() }}
+Index
+{% endblock%}
+{% block content %}
+<div class="container">
+    <div class="well text-center">Categoria</div>
+    {% if categorias != []: %}
+    <div class="row">
+        {% for categoria in categorias %}
+        <div class="col-md-3">
+            <div class="card" style="width: 18rem;">
+                <img class="card-img-top" src="{{categoria.image}}" alt="Card image cap">
+                <div class="card-body">
+                    <h5 class="card-title text-center">{{categoria.nombre}}</h5>
+                    <p class="card-text">{{categoria.detalle}}</p>
+                    <a href="{{ url_for('caso.controllerCasoList', id=categoria.id) }}" class="btn btn-primary">Ir...</a>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+    {% else %}
+    <div class="row">
+        <h2 class="text-center" style="padding: 30px; font-size: 10vw ;">NO EXISTE CATEGORIAS</h2>
+    </div>
+    {% endif %}
+</div>
+{% endblock %}

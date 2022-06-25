@@ -15,6 +15,7 @@ def initDB():
         email = "star._faby@hotmail.com",
         password = "star123",
         cellphone = "0983856136", 
+        phone = "022647002", 
         isadmin = True,
         avatar = "https://res.cloudinary.com/dqmbrjl7jfs/image/upload/v1638923678/starfaby_uqbwru.jpg",
         estado = 1,

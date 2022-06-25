@@ -17,15 +17,16 @@ class User(db.Model):
     __tablename__='users'
 
     id = db.Column(db.Integer, primary_key=True)
-    cedula = db.Column(db.String(80), nullable=False)
-    nombres = db.Column(db.String(80), nullable=False)
-    apellidos = db.Column(db.String(80), nullable=False)
-    username = db.Column(db.String(30), unique=True, nullable=False)
-    email = db.Column(db.String(120), nullable=False)
-    password = db.Column(db.String(250), nullable=True)
-    cellphone = db.Column(db.String(100), nullable=False)
+    cedula = db.Column(db.String(15), nullable=False)
+    nombres = db.Column(db.String(30), nullable=False)
+    apellidos = db.Column(db.String(50), nullable=False)
+    username = db.Column(db.String(20), unique=True, nullable=False)
+    email = db.Column(db.String(50), nullable=False)
+    password = db.Column(db.String(300), nullable=True)
+    cellphone = db.Column(db.String(15), nullable=False)
+    phone = db.Column(db.String(15), nullable=False)
     isadmin = db.Column(db.Boolean, default=False)
-    avatar = db.Column(db.String(250), nullable=True)
+    avatar = db.Column(db.String(500), nullable=True)
     estado = db.Column(db.String(1), nullable=True)
     createdat = db.Column(db.String(11), nullable=True) 
 
@@ -35,7 +36,7 @@ class User(db.Model):
     def onGetCheckPassword(self, password):
         return check_password_hash(self.password, password)
 
-    def __init__(self, cedula, nombres, apellidos, username, email, password, cellphone, isadmin, avatar, estado, createdat):
+    def __init__(self, cedula, nombres, apellidos, username, email, password, cellphone, phone, isadmin, avatar, estado, createdat):
         self.cedula = cedula
         self.nombres = nombres
         self.apellidos = apellidos
@@ -43,6 +44,7 @@ class User(db.Model):
         self.email = email
         self.password = password
         self.cellphone = cellphone
+        self.phone = phone
         self.isadmin = isadmin
         self.avatar = avatar
         self.estado = estado
@@ -50,26 +52,26 @@ class User(db.Model):
 
 class UserSchema(ma.Schema):
     class Meta:
-        fields = ('id','cedula', 'nombres', 'apellidos', 'username', 'email', 'password', 'cellphone', 'isadmin', 'avatar', 'estado', 'createdat')
+        fields = ('id','cedula', 'nombres', 'apellidos', 'username', 'email', 'password', 'cellphone', 'phone', 'isadmin', 'avatar', 'estado', 'createdat')
 
 userSchema = UserSchema()
 usersSchema = UserSchema(many=True)
 
-#---------------------------
-#----------Camera Caso----------
-#--------------------------
 
-class Caso(db.Model):
-    __tablename__='casos'
+
+#-----------------------------
+#----------Categoria----------
+#-----------------------------.
+
+class Categoria(db.Model):
+    __tablename__='categorias'
 
     id = db.Column(db.Integer, primary_key=True)
-    nombre = db.Column(db.String(80), nullable=False)
-    image = db.Column(db.String(80), nullable=False)
-    detalle = db.Column(db.String(80), nullable=False)
+    nombre = db.Column(db.String(30), nullable=False)
+    image = db.Column(db.String(300), nullable=False)
+    detalle = db.Column(db.String(500), nullable=False)
     estado = db.Column(db.String(1), nullable=True)
     createdat = db.Column(db.String(11), nullable=True) 
-    #userid = db.Column(db.Integer, db.ForeignKey('users.id',ondelete='CASCADE'), nullable=False)
-    #user = db.relationship('User',backref=db.backref('cameraip',lazy=True))
 
     def __init__(self, nombre, image, detalle, estado, createdat):
         self.nombre = nombre
@@ -78,9 +80,71 @@ class Caso(db.Model):
         self.estado = estado
         self.createdat = createdat
 
-class CameraIpSchema(ma.Schema):
+class CategoriaSchema(ma.Schema):
     class Meta:
-        fields = ('id','ip', 'descripcion', 'estado', 'createdat')
+        fields = ('id','nombre', 'image', 'detalle' , 'estado', 'createdat')
 
-cameraipSchema = CameraIpSchema()
-cameraipSchema = CameraIpSchema(many=True)
+categoriaSchema = CategoriaSchema()
+categoriaSchema = CategoriaSchema(many=True)
+
+#---------------------------
+#------------ Caso----------
+#--------------------------
+
+class Caso(db.Model):
+    __tablename__='casos'
+
+    id = db.Column(db.Integer, primary_key=True)
+    nombre = db.Column(db.String(30), nullable=False)
+    image = db.Column(db.String(300), nullable=False)
+    detalle = db.Column(db.String(500), nullable=False)
+    estado = db.Column(db.String(1), nullable=True)
+    createdat = db.Column(db.String(11), nullable=True) 
+    categoriaid = db.Column(db.Integer, db.ForeignKey('categorias.id',ondelete='CASCADE'), nullable=False)
+    categoria = db.relationship('Categoria',backref=db.backref('casos',lazy=True))
+
+    def __init__(self, nombre, image, detalle, estado, createdat, categoriaid):
+        self.nombre = nombre
+        self.image = image
+        self.detalle = detalle
+        self.estado = estado
+        self.createdat = createdat
+        self.categoriaid = categoriaid
+
+class CasoSchema(ma.Schema):
+    class Meta:
+        fields = ('id','nombre', 'image', 'detalle' , 'estado', 'createdat', 'categoriaid')
+
+casoSchema = CasoSchema()
+casoSchema = CasoSchema(many=True)
+
+
+#-----------------------------
+#----------usercaso----------
+#-----------------------------.
+
+class Usercaso(db.Model):
+    __tablename__='usercasos'
+
+    id = db.Column(db.Integer, primary_key=True)
+    avance = db.Column(db.String(3), nullable=False)
+    estado = db.Column(db.String(1), nullable=True)
+    createdat = db.Column(db.String(11), nullable=True) 
+    userid = db.Column(db.Integer, db.ForeignKey('users.id',ondelete='CASCADE'), nullable=False)
+    user = db.relationship('User',backref=db.backref('usercasos',lazy=True))
+    casoid = db.Column(db.Integer, db.ForeignKey('casos.id',ondelete='CASCADE'), nullable=False)
+    caso = db.relationship('Caso',backref=db.backref('usercasos',lazy=True))
+
+    def __init__(self, avance, estado, createdat, userid, casoid):
+        self.avance = avance
+        self.estado = estado
+        self.createdat = createdat
+        self.userid = userid
+        self.casoid = casoid
+
+class UsercasoSchema(ma.Schema):
+    class Meta:
+        fields = ('id','avance', 'estado', 'createdat', 'userid', 'casoid')
+
+usercasoSchema = UsercasoSchema()
+usercasoSchema = UsercasoSchema(many=True)
