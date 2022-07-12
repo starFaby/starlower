@@ -1,12 +1,24 @@
-{% extends 'base.html' %}
-{% block title %}
-{{ super() }}
-Index
-{% endblock%}
-{% block content %}
+{% extends 'base.html' %} {% block title %} {{ super() }} Index {% endblock%} {%
+block content %}
 <div class="container">
-    <figure>
-        <img style="width: 90vw;" src="https://res.cloudinary.com/dqmbrjl7jfs/image/upload/v1600882554/aux/paginaconstruccion_k5qpa1.jpg" alt="">
-    </figure>
+  {% if avances != []: %} {% for item in avances %}
+ 
+  <div class="row">
+    
+    <div class="col-md-8">
+      <progress id="javascript" max="100" value="{{item.avance}}"></progress>
+    </div>
+    <div class="col-md-4"> 
+      <span class="avcsnum">{{item.avance}} %</span>
+      <span class="avcsnum">{{item.nombre}} %</span>
+    </div>
+  </div>
+  {% endfor %} {% else %}
+  <div class="row">
+    <h2 class="text-center" style="padding: 30px; font-size: 10vw">
+      NO EXISTE PROCESOS A SEGUIR
+    </h2>
+  </div>
+  {% endif %}
 </div>
 {% endblock %}
