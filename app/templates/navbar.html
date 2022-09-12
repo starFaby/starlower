@@ -1,19 +1,27 @@
-<div class="father">
-    <div class="menubar">
-        <a class="btmenu" style="cursor: pointer;"><span>♥</span> Menu</a>
+<div class="starfn">
+    <div>
+        <h1>Menu</h1>
+        <button class="abg">
+            <div class="hamburger">
+                <hr>
+                <hr>
+                <hr>
+            </div>
+        </button>
     </div>
-    <nav>
+    <nav class="navs">
         <ul>
             {% if current_user.is_authenticated %}
             {% if current_user.id == 'starfaby' %}
             {% if current_user.isadmin == True %}
             {% if current_user.email == 'star._faby@hotmail.com' %}
             <li class="submenu">
-                <a href="#"><span class="icon-rocket"></span>admin <span class="caret"></span></a>
-                <ul class="children">
+                <button class="btnsm">Admin</button>
+                <ul class="abgm">
                     <li><a href="/adcate">Categoria <span class="icon"></span></a></li>
                     <li><a href="/adcaca">Categoria Caso<span class="icon"></span></a></li>
-                    <li><a href="#">sub 3 <span class="icon"></span></a></li>
+                    <li><a href="/usca">User Caso<span class="icon"></span></a></li>
+                    <li><a href="/adfrml">Formularios<span class="icon"></span></a></li>
                 </ul>
             </li>
             {% endif %}
@@ -23,17 +31,22 @@
             <li><a href="/start"><span class="icon">Inicio</span></a></li>
             <li><a href="/categoria"><span class="icon">Categoria</span></a></li>
             <li><a href="/avances"><span class="icon">avances </span></a></li>
+            <li><a href="/frml"><span class="icon">Formularios </span></a></li>
             <li><a href="/qsomos"><span class="icon">Quienes Somos</span></a></li>
             <li class="pull-right">
-                {% if current_user.is_authenticated %}
-                <span>Bienvenido: {{current_user.id}}</span>
-                <img src="{{current_user.avatar}}" alt="" style="width: 3vw; height: 3vw;">
-                <button class="btn btn-success"><a href="/logout">Logout</a></button>
-                {% else %}
-                <button class="btn btn-danger"><a class="nav-link" href="loginin">Login In</a></button>
-                {% endif %}
+                
+                <div class="alin">
+                    <ul>
+                        {% if current_user.is_authenticated %}
+                        <li><span>Bienvenido: {{current_user.id}}</span></li>
+                        <li><img src="{{current_user.avatar}}" alt="" style="width: 20px; height: 20px;"></li>
+                        <li><button class="btnlogout"><a href="/logout">Logout</a></button></li>
+                        {% else %}
+                        <li><button class="btnloginin"><a class="nav-link" href="loginin">Login In</a></button></li>
+                        {% endif %}
+                    </ul>
+                </div>
             </li>
         </ul>
-
     </nav>
 </div>

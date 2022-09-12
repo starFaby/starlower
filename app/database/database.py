@@ -148,3 +148,32 @@ class UsercasoSchema(ma.Schema):
 
 usercasoSchema = UsercasoSchema()
 usercasoSchema = UsercasoSchema(many=True)
+
+class Formulario(db.Model):
+    __tablename__='formulario'
+
+    id = db.Column(db.Integer, primary_key=True)
+    nombre = db.Column(db.String(50), nullable=False)
+    image = db.Column(db.String(250), nullable=False)
+    detalle = db.Column(db.String(250), nullable=False)
+    url = db.Column(db.String(250), nullable=False)
+    estado = db.Column(db.String(1), nullable=True)
+    createdat = db.Column(db.String(11), nullable=True) 
+    userid = db.Column(db.Integer, db.ForeignKey('users.id',ondelete='CASCADE'), nullable=False)
+    user = db.relationship('User',backref=db.backref('formulario',lazy=True))
+
+    def __init__(self, nombre, image, detalle, url, estado, createdat, userid):
+        self.nombre = nombre
+        self.image = image
+        self.detalle = detalle
+        self.url = url
+        self.estado = estado
+        self.createdat = createdat
+        self.userid = userid
+
+class FormularioSchema(ma.Schema):
+    class Meta:
+        fields = ('id','nombre','image','detalle','url', 'estado', 'createdat', 'userid')
+
+formularioSchema = FormularioSchema()
+formularioSchema = FormularioSchema(many=True)

@@ -1,24 +1,13 @@
-{% extends 'base.html' %} {% block title %} {{ super() }} Index {% endblock%} {%
-block content %}
+{% extends 'base.html' %} {% block title %} {{ super() }} Index {% endblock%}
+{% block content %}
 <div class="container">
-  {% if avances != []: %} {% for item in avances %}
- 
+  <div class="well text-center">Avances</div>
+  {% if avances.count() != 0: %}
+  <h1>LISTADO LOS AVANCES</h1>
+  {% else %}
   <div class="row">
-    
-    <div class="col-md-8">
-      <progress id="javascript" max="100" value="{{item.avance}}"></progress>
-    </div>
-    <div class="col-md-4"> 
-      <span class="avcsnum">{{item.avance}} %</span>
-      <span class="avcsnum">{{item.nombre}} %</span>
-    </div>
-  </div>
-  {% endfor %} {% else %}
-  <div class="row">
-    <h2 class="text-center" style="padding: 30px; font-size: 10vw">
-      NO EXISTE PROCESOS A SEGUIR
-    </h2>
-  </div>
+    <h2 class="text-center" style="padding: 30px; font-size: 10vw ;">AUN NO ELIGES UN CASO</h2>
+</div>
   {% endif %}
 </div>
 {% endblock %}

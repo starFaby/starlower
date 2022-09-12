@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+{% block title %}
+{{ super() }}
+Index
+{% endblock%}
+{% block content %}
+<div class="container">
+    <div class="well text-center">Formularios</div>
+    {% if formulario != []: %}
+    <div class="row">
+        {% for item in formulario %}
+        <div class="col-md-3">
+            <div class="card" style="width: 18rem;">
+                <img style="width: 100%; height:30px ;" class="card-img-top" src="{{item.image}}" alt="Card image cap">
+                <div class="card-body">
+                    <h5 class="card-title text-center">{{item.nombre}}</h5>
+                    <p class="card-text">{{item.detalle}}</p>
+                    <a href="{{item.url}}" class="btn btn-primary">Ver...</a>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+    {% else %}
+    <div class="row">
+        <h2 class="text-center" style="padding: 30px; font-size: 10vw ;">NO EXISTE FORMULARIOS</h2>
+    </div>
+    {% endif %}
+</div>
+{% endblock %}

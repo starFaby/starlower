@@ -1,20 +1,26 @@
 from datetime import datetime
 from flask import request, render_template as render, flash, redirect, url_for
-from sqlalchemy import null
+from flask_login import current_user
 from app.database.database import *
 
 class ControllerCaso:
 
     def controllerCasoList(id):
-        caso = Caso.query.filter(Caso.categoriaid == id)
-        return render("client/casos.html", caso = caso)
+        if current_user.is_authenticated:
+            caso = Caso.query.filter(Caso.categoriaid == id)
+            return render("client/casos.html", caso = caso)
+        else:
+            return redirect(url_for("loginin.onGetLogin"))
 
 
     def onGetcontrollerCasoInsert():
         avance = 3
         estado = 1
         createdat = datetime.now().strftime('%x')
-        userid = request.form['txtUserId']
+        if current_user.is_authenticated:
+            userid = current_user.iduser
+        else:
+            return redirect(url_for("loginin.onGetLogin"))
         casoid = request.form['txtCasoId']
         
         if avance != '' and estado != '' and createdat != '' and userid != '' and casoid != '':

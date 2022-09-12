@@ -1,0 +1,45 @@
+{% extends 'base.html' %}
+{% block title %}
+{{ super() }}
+Index
+{% endblock%}
+{% block content %}
+<div class="container">
+    <div class="well text-center">Formularios</div>
+    <div class="row">
+        <div class="col-md-6 p-4">
+            <form action="{{ url_for('adfrml.onGetControllerAdminFormularioUpdate', id=formulario.id) }}" method="post">
+                <div class="form-group">
+                    <label for="txtNombre">Nombre</label>
+                    <input type="text" class="form-control" id="txtNombre" name="txtNombre" aria-describedby="emailHelp"
+                        placeholder="Nombre..." value="{{formulario.nombre}}">
+                </div>
+                <div class="form-group">
+                    <label for="txtImage">Image</label>
+                    <input type="text" class="form-control" id="txtImage" name="txtImage" placeholder="Image..." value="{{formulario.image}}">
+                </div>
+                <div class="form-group">
+                    <label for="txtDetalle">Detalle</label>
+                    <input type="text" class="form-control" id="txtDetalle" name="txtDetalle" placeholder="Detalle..." value="{{formulario.detalle}}">
+                </div>
+                <div class="form-group">
+                    <label for="txtUrl">Url</label>
+                    <input type="text" class="form-control" id="txtUrl" name="txtUrl" placeholder="Url..." value="{{formulario.url}}">
+                </div>
+                <div class="form-group">
+                    <label for="selectEstado">Estado</label>
+                    <select class="form-control" id="selectEstado" name="selectEstado">
+                        <option selected>Elija...</option>
+                        <option value="1">Activo</option>
+                        <option value="0">Inactivo</option>
+                    </select>
+                </div>
+                <button type="submit" class="btn btn-primary"><i class="fa-solid fa-floppy-disk"></i>Guardar</button>
+            </form>
+        </div>
+        <div class="col-md-6 p-4">
+            <img src="{{formulario.image}}" alt="">
+        </div>
+    </div>
+</div>
+{% endblock %}

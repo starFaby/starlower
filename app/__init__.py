@@ -15,6 +15,9 @@ from app.routes.routerCaso import caso
 from app.routes.routerAvances import avances
 from app.routes.routerQuienesSomos import qsomos
 from app.routes.routerAdminCateCaso import adcaca
+from app.routes.routerAdminUserCaso import usca
+from app.routes.routerFormulario import frml
+from app.routes.routerAdminFormulario import adfrml
 from app.middlewares.authLogin import UserModel
 
 loginManager = LoginManager()
@@ -38,6 +41,9 @@ def apprun():
     app.register_blueprint(avances)
     app.register_blueprint(qsomos)
     app.register_blueprint(adcaca)
+    app.register_blueprint(usca)
+    app.register_blueprint(frml)
+    app.register_blueprint(adfrml)
     loginManager.init_app(app)
     db.init_app(app)
     ma.init_app(app)

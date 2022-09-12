@@ -1,32 +1,30 @@
-$(document).ready(main);
-var contador = 1;
-function main() {
-    $(".menubar").click(function () {
-        if (contador == 1) {
-            $('nav').animate({
-                left: '0'
-            })
-            contador = 0;
-        } else {
-            contador = 1;
-            $('nav').animate({
-                left: '-100%'
-            });
-        }
-    });
-    // mostramos y oculatamos submenus
+const abg = document.querySelector('.abg');
+const navs = document.querySelector('.navs');
+const abgm = document.querySelector('.abgm');
+const btnsm = document.querySelector('.btnsm');
+count = 1;
 
-    $('.submenu').click(function () {
-        $(this).children('.children').slideToggle();
-    });
-}
+abg.addEventListener('click', () => {
+  numpi = count++;
+  console.log(numpi)
+  if (numpi%2 != 0) {
+    navs.style.display='none'  
+  } else {
+    navs.style.display='block'
+  }
+});
 
-/*
-$(document).ready(function(){
-    $("#exampleModal").modal("show")
-})
+btnsm.addEventListener('click', () => {
+  console.log("star")
+  numpi = count++;
+  console.log(numpi)
+  if (numpi%2 != 0) {
+    abgm.style.display='block'
+  } else {
+    abgm.style.display='none' 
+  }
+});
 
-*/
 const getTitleMessageFromCategory = category => {
     const titles = {
         'success': 'Bien Hecho',

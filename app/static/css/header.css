@@ -1,11 +1,25 @@
 header {
     background-image: url('https://res.cloudinary.com/dqmbrjl7jfs/image/upload/v1653055740/lawyerstar/imgjuez_hrke9l.jpg');
-    background-color: #cccccc;
     height: 70vw;
     background-position: center;
     background-repeat: no-repeat;
     background-size: cover;
 }
+
+header h2{
+    color: #D7CEC7;
+    font-size: 7vw;
+    text-align: center;
+    text-shadow: #D7CEC7;
+}
+
+header h3{
+    color: #D7CEC7;
+    font-size: 5vw;
+    text-align: center;
+    text-shadow: #D7CEC7;
+}
+
 /*red social whatssap flotante*/
 .rswfloat{
     position: fixed;

@@ -1,0 +1,52 @@
+{% extends 'base.html' %}
+{% block title %}
+{{ super() }}
+Index
+{% endblock%}
+{% block content %}
+<div class="container">
+    <div class="well text-center">Formulario de Categoria</div>
+    <div class="row">
+        <div class="col-md-10 p-4">
+            {% if userCasos != []: %}
+            <table class="table">
+                <thead>
+                    <tr class="text-center">
+                        <th scope="col">#</th>
+                        <th scope="col">Nombre</th>
+                        <th scope="col">Apellido</th>
+                        <th scope="col">Caso</th>
+                        <th scope="col">Avance</th>
+                        <th scope="col">Inicio</th>
+                        <th scope="col" colspan="1">Accion</th>
+                    </tr>
+                </thead>
+                <tbody>
+
+                    {% for item in userCasos %}
+                    <tr>
+                        <th scope="row">{{item.id}}</th>
+                        <td>{{item.nombres}}</td>
+                        <td>{{item.apellidos}}</td>
+                        <td>{{item.nombre}}</td>
+                        <td>{{item.avance}}</td>
+                        <td>{{item.createdat}}</td>
+                        <td>
+                            <button>
+                                <a href="{{ url_for('usca.onGetControllerAdminUserCasoUpdate', id=item.id) }}">Actualizar
+                                </a>
+                            </button>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+            {% else %}
+            <section class="">
+                <h2 class="text-center" style="padding: 10px; font-size: 5vw;">No existe datos</h2>
+            </section>
+            {% endif %}
+        </div>
+    </div>
+</div>
+{% endblock %}
