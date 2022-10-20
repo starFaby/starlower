@@ -3,11 +3,26 @@
 <div class="container">
   <div class="well text-center">Avances</div>
   {% if avances.count() != 0: %}
-  <h1>LISTADO LOS AVANCES</h1>
+  {% for item in avances %}
+  <section class="well p-4">
+    <div class="row" style="font-size: 5vw ;">
+      <div class="col-md-4">
+        <p>{{current_user.id}}</p>
+      </div>
+      <div class="col-md-4">
+        <p>{{item.nombre}}</p>
+      </div>
+      <div class="col-md-4">
+        <p>avance: {{item.avance}}%</p>
+      </div>
+    </div>
+    <progress value="{{item.avance}}" max="100"></progress>
+  </section>
+  {% endfor %}
   {% else %}
   <div class="row">
     <h2 class="text-center" style="padding: 30px; font-size: 10vw ;">AUN NO ELIGES UN CASO</h2>
-</div>
+  </div>
   {% endif %}
 </div>
 {% endblock %}

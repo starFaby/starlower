@@ -33,6 +33,7 @@ class ControllerAdminCategoria:
             return redirect(url_for('adcate.controllerAdminCategoriaList'))
 
     def onGetControllerAdminCategoriaUpdate(id):
+        print("entraste ===> categoria")
         categoria = Categoria.query.get(id)
         if request.method == 'POST':
             categoria.nombre = request.form['txtNombre']
