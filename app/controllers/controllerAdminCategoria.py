@@ -6,11 +6,19 @@ from app.database.database import *
 
 class ControllerAdminCategoria:
 
-    def controllerAdminCategoriaList():
-        categorias = Categoria.query.all()
+    def controllerAdminCategoriaList(page):
+        page = page
+        pages = 5
+        categorias = Categoria.query.order_by(Categoria.id.asc()).paginate(page, pages,error_out=False)
         if categorias != []:
-            flash('Categorias Listadas', category='success')
-            return render("admin/adminCategoria.html", categorias=categorias)
+            if request.method == 'POST' and 'tag' in request.form:
+                tag = request.form["tag"]
+                search = "%{}%".format(tag)
+                categorias = Categoria.query.filter(Categoria.nombre.like(search)).paginate(per_page=pages,error_out=False)
+                return render("admin/adminCategoria.html", categorias=categorias, tag = tag)
+            else:
+                flash('Categorias Listadas', category='success')
+                return render("admin/adminCategoria.html", categorias=categorias)
         else:
             flash('No existe categorias', category='success')
             return render("admin/adminCategoria.html", categorias=categorias)
@@ -33,7 +41,6 @@ class ControllerAdminCategoria:
             return redirect(url_for('adcate.controllerAdminCategoriaList'))
 
     def onGetControllerAdminCategoriaUpdate(id):
-        print("entraste ===> categoria")
         categoria = Categoria.query.get(id)
         if request.method == 'POST':
             categoria.nombre = request.form['txtNombre']

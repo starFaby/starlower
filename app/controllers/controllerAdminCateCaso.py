@@ -6,13 +6,23 @@ from app.database.database import *
 
 class ControllerAdminCateCaso:
 
-    def controllerAdminCateCasoList():
-        print("listando catecaso")
-        cateCaso = Caso.query.all()
+    def controllerAdminCateCasoList(page):
+        page = page
+        pages = 5
+        #cateCaso = Caso.query.all()
+        #cateCaso = Caso.query.paginate(page, pages,error_out=False)
+        cateCaso = Caso.query.order_by(Caso.id.asc()).paginate(page, pages,error_out=False)
         categorias = Categoria.query.all()
+        
         if cateCaso != [] or categorias != []:
-            flash('Categorias Listadas', category='success')
-            return render("admin/adminCateCaso.html", cateCaso=cateCaso, categorias=categorias)
+            if request.method == 'POST' and 'tag' in request.form:
+                tag = request.form["tag"]
+                search = "%{}%".format(tag)
+                cateCaso = Caso.query.filter(Caso.nombre.like(search)).paginate(per_page=pages,error_out=False)
+                return render("admin/adminCateCaso.html", cateCaso=cateCaso, categorias=categorias, tag = tag)
+            else:    
+                flash('Categorias Listadas', category='success')
+                return render("admin/adminCateCaso.html", cateCaso=cateCaso, categorias=categorias)
         else:
             flash('No existe categorias', category='success')
             return render("admin/adminCateCaso.html", cateCaso=cateCaso, categorias=categorias)

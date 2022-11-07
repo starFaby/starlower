@@ -7,12 +7,19 @@ from app.database.database import *
 
 class ControllerAdminFormulario:
 
-    def controllerAdminFormularioList():
-        formulario = Formulario.query.all()
-        print(formulario)
+    def controllerAdminFormularioList(page):
+        page = page
+        pages = 5
+        formulario = Formulario.query.order_by(Formulario.id.asc()).paginate(page, pages,error_out=False)
         if formulario != []:
-            flash('Formularios Listados', category='success')
-            return render("admin/adminFormulario.html", formulario=formulario)
+            if request.method == 'POST' and 'tag' in request.form:
+                tag = request.form["tag"]
+                search = "%{}%".format(tag)
+                formulario = Formulario.query.filter(Formulario.nombre.like(search)).paginate(per_page=pages,error_out=False)
+                return render("admin/adminFormulario.html", formulario=formulario, tag = tag)
+            else:
+                flash('Formularios Listados', category='success')
+                return render("admin/adminFormulario.html", formulario=formulario)
         else:
             flash('No existe categorias', category='success')
             return render("admin/adminFormulario.html", formulario=formulario)

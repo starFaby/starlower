@@ -18,7 +18,7 @@ Index
                             <div class="row">
                                 <div class="col-6">
                                     <input type="text" class="form-control" name="tag" id="tag"
-                                        placeholder="Caso..." />
+                                        placeholder="Cedula..." />
                                 </div>
                                 <div class="col-6" align="left">
                                     <input type="submit" value="Search" class="form-control btn btn-primary " name="">
@@ -27,78 +27,61 @@ Index
                     </div>
                 </div>
             </div>
-            {% if userCasos != []: %}
+            {% if users != []: %}
             <table class="table">
                 <thead>
                     <tr class="text-center">
                         <th scope="col">#</th>
+                        <th scope="col">Cedula</th>
                         <th scope="col">Nombre</th>
                         <th scope="col">Apellido</th>
-                        <th scope="col">Caso</th>
-                        <th scope="col">Avance</th>
-                        <th scope="col">Inicio</th>
-                        <th scope="col" colspan="3">Accion</th>
+                        <th scope="col">Email</th>
+                        <th scope="col">Celular</th>
+                        <th scope="col">Telefono</th>
                     </tr>
                 </thead>
                 <tbody>
 
-                    {% for item in userCasos.items %}
+                    {% for item in users.items %}
                     <tr>
                         <th scope="row">{{item.id}}</th>
+                        <td>{{item.cedula}}</td>
                         <td>{{item.nombres}}</td>
                         <td>{{item.apellidos}}</td>
-                        <td>{{item.nombre}}</td>
-                        <td>{{item.avance}}</td>
-                        <td>{{item.createdat}}</td>
-                        <td>
-                            <button>
-                                <a href="{{ url_for('clients.controllerClientsList', id=item.userid) }}">Ver
-                                </a>
-                            </button>
-                        </td>
-                        <td>
-                            <button>
-                                <a href="{{ url_for('usca.onGetControllerAdminUserCasoUpdate', id=item.id) }}">Actualizar
-                                </a>
-                            </button>
-                        </td>
-                        <td>
-                            <button>
-                                <a href="{{ url_for('usca.onGetControllerAdminUserCasoDelete', id=item.id) }}">Cerrar
-                                </a>
-                            </button>
-                        </td>
+                        <td>{{item.email}}</td>
+                        <td>{{item.cellphone}}</td>
+                        <td>{{item.phone}}</td>
                     </tr>
                     {% endfor %}
                 </tbody>
             </table>
             <nav aria-label="Page navigation example">
                 <ul class="pagination">
-                    {% if userCasos.has_prev %}
+                    {% if users.has_prev %}
                     <li class="page-item"> <a class="page-link"
-                            href="{{ url_for('usca.controllerAdminUserCasoList', page=userCasos.prev_num )}}">Previous</a>
+                            href="{{ url_for('userall.controllerUsersList', page=users.prev_num )}}">Previous</a>
                     </li>
                     {% else %}
                     <li class="page-item"> <a class="page link btn disabled" href="#">Previous</a></li>
                     {% endif %}
-                    {% for page in userCasos.iter_pages(left_edge=3, right_edge=3) %}
+                    {% for page in users.iter_pages(left_edge=3, right_edge=3) %}
                     {% if page %}
 
-                    {% if page==userCasos.page %}
+                    {% if page==users.page %}
                     <li class="page-item active"><a class="page-link"
-                            href="{{ url_for('usca.controllerAdminUserCasoList', page=page) }}">{{ page }}</a></li>
+                            href="{{ url_for('userall.controllerUsersList', page=page) }}">{{ page }}</a></li>
                     {% else %}
                     <li class="page-item"><a class="page-link"
-                            href="{{ url_for('usca.controllerAdminUserCasoList', page=page) }}">{{ page }}</a></li>
+                            href="{{ url_for('userall.controllerUsersList', page=page) }}">{{ page }}</a></li>
                     {% endif %}
 
                     {% else %}
                     <li class="page-item disabled" id="example_ellipsis"><a href="#" class="page-link">…</a></li>
                     {% endif %}
                     {% endfor %}
-                    {% if userCasos.has_next %}
+                    {% if users.has_next %}
                     <li class="page-item"> <a class="page-link"
-                            href="{{ url_for('usca.controllerAdminUserCasoList', page=userCasos.next_num )}}">Next</a>
+                            href="{{ url_for('userall.controllerUsersList', page=users.next_num )}}">Next</a>
                     </li>
                     {% else %}
                     <li class="page-item"> <a class="page link btn disabled" href="#">Previous</a></li>

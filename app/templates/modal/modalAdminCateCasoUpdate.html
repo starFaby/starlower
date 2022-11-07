@@ -8,7 +8,7 @@ Index
     <div class="well text-center">Formulario Update Categoria Caso</div>
     <div class="row">
         <div class="p-4 col-md-6 ">
-            <form action="/newcc" method="post">
+            <form action="{{ url_for('adcaca.onGetControllerAdminCateCasoUpdate', id=caso.id) }}" method="post">
                 <div class="form-group">
                     <label for="txtNombre">Nombre</label>
                     <input type="text" class="form-control" id="txtNombre" name="txtNombre" aria-describedby="emailHelp"
