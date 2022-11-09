@@ -94,7 +94,7 @@ class Caso(db.Model):
     __tablename__='casos'
 
     id = db.Column(db.Integer, primary_key=True)
-    nombre = db.Column(db.String(30), nullable=False)
+    nombre = db.Column(db.String(80), nullable=False)
     image = db.Column(db.String(300), nullable=False)
     detalle = db.Column(db.String(500), nullable=False)
     estado = db.Column(db.String(1), nullable=True)
