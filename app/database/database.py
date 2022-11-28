@@ -27,7 +27,7 @@ class User(db.Model):
     isadmin = db.Column(db.Boolean, default=False)
     avatar = db.Column(db.String(500), nullable=True)
     estado = db.Column(db.String(1), nullable=True)
-    createdat = db.Column(db.String(11), nullable=True) 
+    createdat = db.Column(db.String(15), nullable=True) 
 
     def onGetSetPassword(self, password):
         self.password = generate_password_hash(password)
@@ -70,7 +70,7 @@ class Categoria(db.Model):
     image = db.Column(db.String(300), nullable=False)
     detalle = db.Column(db.String(500), nullable=False)
     estado = db.Column(db.String(1), nullable=True)
-    createdat = db.Column(db.String(11), nullable=True) 
+    createdat = db.Column(db.String(15), nullable=True) 
 
     def __init__(self, nombre, image, detalle, estado, createdat):
         self.nombre = nombre
@@ -98,7 +98,7 @@ class Caso(db.Model):
     image = db.Column(db.String(300), nullable=False)
     detalle = db.Column(db.String(500), nullable=False)
     estado = db.Column(db.String(1), nullable=True)
-    createdat = db.Column(db.String(11), nullable=True) 
+    createdat = db.Column(db.String(15), nullable=True) 
     categoriaid = db.Column(db.Integer, db.ForeignKey('categorias.id',ondelete='CASCADE'), nullable=False)
     categoria = db.relationship('Categoria',backref=db.backref('casos',lazy=True))
 
@@ -128,7 +128,7 @@ class Usercaso(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     avance = db.Column(db.String(3), nullable=False)
     estado = db.Column(db.String(1), nullable=True)
-    createdat = db.Column(db.String(11), nullable=True) 
+    createdat = db.Column(db.String(15), nullable=True) 
     userid = db.Column(db.Integer, db.ForeignKey('users.id',ondelete='CASCADE'), nullable=False)
     user = db.relationship('User',backref=db.backref('usercasos',lazy=True))
     casoid = db.Column(db.Integer, db.ForeignKey('casos.id',ondelete='CASCADE'), nullable=False)
@@ -157,7 +157,7 @@ class Formulario(db.Model):
     detalle = db.Column(db.String(250), nullable=False)
     url = db.Column(db.String(250), nullable=False)
     estado = db.Column(db.String(1), nullable=True)
-    createdat = db.Column(db.String(11), nullable=True) 
+    createdat = db.Column(db.String(15), nullable=True) 
     userid = db.Column(db.Integer, db.ForeignKey('users.id',ondelete='CASCADE'), nullable=False)
     user = db.relationship('User',backref=db.backref('formulario',lazy=True))
 
@@ -176,3 +176,34 @@ class FormularioSchema(ma.Schema):
 
 formularioSchema = FormularioSchema()
 formularioSchema = FormularioSchema(many=True)
+
+
+class Consulta(db.Model):
+    __tablename__='consultas'
+
+    id = db.Column(db.Integer, primary_key=True)
+    fecha = db.Column(db.String(50), nullable=False)
+    hora = db.Column(db.String(250), nullable=False)
+    detalle = db.Column(db.String(250), nullable=False)
+    atendido = db.Column(db.String(4), nullable=False)
+    estado = db.Column(db.String(1), nullable=True)
+    createdat = db.Column(db.String(15), nullable=True) 
+    userid = db.Column(db.Integer, db.ForeignKey('users.id',ondelete='CASCADE'), nullable=False)
+    user = db.relationship('User',backref=db.backref('consultas',lazy=True))
+
+    def __init__(self, fecha, hora, detalle, atendido, estado, createdat, userid):
+        self.fecha = fecha
+        self.hora = hora
+        self.detalle = detalle
+        self.atendido = atendido
+        self.estado = estado
+        self.createdat = createdat
+        self.userid = userid
+
+class ConsultaSchema(ma.Schema):
+    class Meta:
+        fields = ('id','fecha','hora','detalle','atendido', 'estado', 'createdat', 'userid')
+
+consultaSchema = ConsultaSchema()
+consultaSchema = ConsultaSchema(many=True)
+

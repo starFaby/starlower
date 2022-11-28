@@ -21,6 +21,7 @@ class ControllerCaso:
             userid = current_user.iduser
         else:
             return redirect(url_for("loginin.onGetLogin"))
+            
         casoid = request.form['txtCasoId']
         
         if avance != '' and estado != '' and createdat != '' and userid != '' and casoid != '':

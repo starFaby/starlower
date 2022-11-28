@@ -7,7 +7,7 @@ Index
 <div class="container">
     <div class="well text-center">Formulario de Categoria</div>
     <div class="row">
-        <div class="col-md-6 p-4">
+        <div class="col-md-4 p-4">
             <form action="/new" method="post">
                 <div class="form-group">
                     <label for="txtNombre">Nombre</label>
@@ -33,7 +33,7 @@ Index
                 <button type="submit" class="btn btn-primary"><i class="fa-solid fa-floppy-disk"></i>Guardar</button>
             </form>
         </div>
-        <div class="col-md-6 p-4">
+        <div class="col-md-8 p-4">
             <div class="container">
                 <div class="row">
                     <div class="col-8">
@@ -54,7 +54,7 @@ Index
                 </div>
             </div>
             {% if categorias != []: %}
-            <table class="table">
+            <table class="table text-center">
                 <thead>
                     <tr class="text-center">
                         <th scope="col">#</th>
@@ -94,7 +94,7 @@ Index
                 <ul class="pagination">
                     {% if categorias.has_prev %}
                     <li class="page-item"> <a class="page-link"
-                            href="{{ url_for('userall.controllerUsersList', page=categorias.prev_num )}}">Previous</a>
+                            href="{{ url_for('adcate.controllerAdminCategoriaList', page=categorias.prev_num )}}">Previous</a>
                     </li>
                     {% else %}
                     <li class="page-item"> <a class="page link btn disabled" href="#">Previous</a></li>

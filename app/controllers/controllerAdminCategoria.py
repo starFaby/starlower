@@ -29,7 +29,7 @@ class ControllerAdminCategoria:
         image = request.form['txtImage']
         detalle = request.form['txtDetalle']
         estado = request.form['selectEstado']
-        createdat = datetime.now().strftime('%x')
+        createdat = datetime.now().strftime('%d/%m/%Y')
         if nombre != '' and image != '' and detalle != '' and estado != 'Elija...':
             newcategoria = Categoria(nombre, image, detalle, estado, createdat)
             db.session.add(newcategoria)

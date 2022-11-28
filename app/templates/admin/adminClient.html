@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+{% block title %}
+{{ super() }}
+Index
+{% endblock%}
+{% block content %}
+<section>
+    <div class="well text-center">Informacion Personal</div>
+    <div>
+        <div class="col-sm-6">
+            <div>
+                <span class="clititle">Cedula:</span>
+                <p class="clidate">{{ user.cedula }}</p>
+                <span class="clititle">Nombre:</span>
+                <p class="clidate">{{ user.nombres }}</p>
+                <span class="clititle">Apellidos:</span>
+                <p class="clidate">{{ user.apellidos }}</p>
+                <span class="clititle">Email:</span>
+                <p class="clidate">{{ user.email }}</p>
+                <span class="clititle">Celular:</span>
+                <p class="clidate">{{ user.cellphone }}</p>
+                <span class="clititle">Telefono:</span>
+                <p class="clidate">{{ user.phone }}</p>
+            </div>
+        </div>
+        <div class="col-sm-6">
+            <figure>
+                <img src="{{ user.avatar }}" alt="" style="width: 35vw; height: 35vw ;">
+                <caption></caption>
+            </figure>
+        </div>
+    </div>
+</section>
+
+
+{% endblock %}

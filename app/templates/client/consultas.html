@@ -1,0 +1,123 @@
+{% extends 'base.html' %}
+{% block title %}
+{{ super() }}
+Index
+{% endblock%}
+{% block content %}
+<div class="well text-center">
+  <span style="font-weight: bold ;">Consultas:</span>
+</div>
+<section class="container">
+  <div class="row">
+    <div class="col-md-6">
+      <form action="{{ url_for('consul.onGetConsultasSave') }}" method="post">
+        <div class="form-group">
+          <label for="txtDetalle">Fecha</label>
+          <input type="date" class="form-control" id="txtDate" name="txtDate" placeholder="Date...">
+        </div>
+        <div class="form-group">
+          <label for="txtHora">Seleccione la hora</label>
+          <select class="form-control" id="txtHora" name="txtHora">
+            <option>9</option>
+            <option>10</option>
+            <option>11</option>
+            <option>13</option>
+            <option>14</option>
+            <option>15</option>
+            <option>16</option>
+            <option>17</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="txtDetalle">Detalle</label>
+          <input type="text" class="form-control" id="txtDetalle" name="txtDetalle" placeholder="Detalle...">
+        </div>
+        <button type="submit" class="btn btn-primary">Enviar</button>
+      </form>
+    </div>
+    <div class="col-md-6">
+      <div class="container">
+        <div class="row">
+          <div class="col-8">
+            <strong>Search For : {{ tag }}</strong>
+          </div>
+          <div class="col-4">
+            <form action="" method="post" autocomplete="off">
+              <div class="row">
+                <div class="col-6">
+                  <input type="date" class="form-control" name="tag" id="tag" placeholder="Nombre..." />
+                </div>
+                <div class="col-6" align="left">
+                  <input type="submit" value="Search" class="form-control btn btn-primary " name="">
+                </div>
+            </form>
+          </div>
+        </div>
+      </div>
+      {% if consult != []: %}
+      <table class="table text-center">
+        <thead>
+          <tr class="text-center">
+            <th scope="col">#</th>
+            <th scope="col">Detalle</th>
+            <th scope="col">Hora</th>
+            <th scope="col">Fecha</th>
+          </tr>
+        </thead>
+        <tbody>
+
+          {% for item in consult.items %}
+          <tr>
+            <th scope="row">{{item.id}}</th>
+            <td>{{item.detalle}}</td>
+            <td>{{item.hora}}</td>
+            <td>{{item.fecha}}</td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+      <nav aria-label="Page navigation example">
+        <ul class="pagination">
+          {% if consult.has_prev %}
+          <li class="page-item"> <a class="page-link"
+              href="{{ url_for('consul.onGetConsultas', page=consult.prev_num )}}">Previous</a>
+          </li>
+          {% else %}
+          <li class="page-item"> <a class="page link btn disabled" href="#">Previous</a></li>
+          {% endif %}
+          {% for page in consult.iter_pages(left_edge=3, right_edge=3) %}
+          {% if page %}
+
+          {% if page==consult.page %}
+          <li class="page-item active"><a class="page-link"
+              href="{{ url_for('consul.onGetConsultas', page=page) }}">{{ page }}</a></li>
+          {% else %}
+          <li class="page-item"><a class="page-link"
+              href="{{ url_for('consul.onGetConsultas', page=page) }}">{{ page }}</a></li>
+          {% endif %}
+
+          {% else %}
+          <li class="page-item disabled" id="example_ellipsis"><a href="#" class="page-link">…</a></li>
+          {% endif %}
+          {% endfor %}
+          {% if consult.has_next %}
+          <li class="page-item"> <a class="page-link"
+              href="{{ url_for('consul.onGetConsultas', page=consult.next_num )}}">Next</a>
+          </li>
+          {% else %}
+          <li class="page-item"> <a class="page link btn disabled" href="#">Previous</a></li>
+          {% endif %}
+
+        </ul>
+      </nav>
+      {% else %}
+      <section class="">
+        <h2 class="text-center" style="padding: 10px; font-size: 5vw;">No existe datos</h2>
+      </section>
+      {% endif %}
+    </div>
+  </div>
+</section>
+
+
+{% endblock %}

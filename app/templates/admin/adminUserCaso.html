@@ -28,9 +28,9 @@ Index
                 </div>
             </div>
             {% if userCasos != []: %}
-            <table class="table">
+            <table class="table text-center">
                 <thead>
-                    <tr class="text-center">
+                    <tr>
                         <th scope="col">#</th>
                         <th scope="col">Nombre</th>
                         <th scope="col">Apellido</th>
@@ -51,20 +51,20 @@ Index
                         <td>{{item.avance}}</td>
                         <td>{{item.createdat}}</td>
                         <td>
-                            <button>
-                                <a href="{{ url_for('clients.controllerClientsList', id=item.userid) }}">Ver
+                            <button class="btn btn-info">
+                                <a class="text-black" href="{{ url_for('adcli.controllerAdminClientList', id=item.userid) }}">Ver
                                 </a>
                             </button>
                         </td>
                         <td>
-                            <button>
-                                <a href="{{ url_for('usca.onGetControllerAdminUserCasoUpdate', id=item.id) }}">Actualizar
+                            <button class="btn btn-primary">
+                                <a class="text-black" href="{{ url_for('usca.onGetControllerAdminUserCasoUpdate', id=item.id) }}">Actualizar
                                 </a>
                             </button>
                         </td>
                         <td>
-                            <button>
-                                <a href="{{ url_for('usca.onGetControllerAdminUserCasoDelete', id=item.id) }}">Cerrar
+                            <button class="btn btn-warning">
+                                <a class="text-black" href="{{ url_for('usca.onGetControllerAdminUserCasoDelete', id=item.id) }}">Cerrar
                                 </a>
                             </button>
                         </td>

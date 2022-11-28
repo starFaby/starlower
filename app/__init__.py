@@ -18,8 +18,10 @@ from app.routes.routerAdminCateCaso import adcaca
 from app.routes.routerAdminUserCaso import usca
 from app.routes.routerFormulario import frml
 from app.routes.routerAdminFormulario import adfrml 
-from app.routes.routerClientes import clients 
 from app.routes.routerAdminUser import userall 
+from app.routes.routerConsultas import consul 
+from app.routes.routerAdminConsultas import adcons 
+from app.routes.routerAdminCliente import adcli 
 from app.middlewares.authLogin import UserModel
 
 loginManager = LoginManager()
@@ -46,8 +48,10 @@ def apprun():
     app.register_blueprint(usca)
     app.register_blueprint(frml)
     app.register_blueprint(adfrml)
-    app.register_blueprint(clients)
     app.register_blueprint(userall)
+    app.register_blueprint(consul)
+    app.register_blueprint(adcons)
+    app.register_blueprint(adcli)
     loginManager.init_app(app)
     db.init_app(app)
     ma.init_app(app)

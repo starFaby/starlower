@@ -1,0 +1,110 @@
+{% extends 'base.html' %}
+{% block title %}
+{{ super() }}
+Index
+{% endblock%}
+{% block content %}
+<div class="container">
+    <div class="well text-center">Consultas</div>
+    <div class="col-md-12 p-4">
+        <div class="container">
+            <div class="row">
+                <div class="col-8">
+                    <strong>Search For : {{ tag }}</strong>
+                </div>
+                <div class="col-4">
+                    <form action="" method="post" autocomplete="off">
+                        <div class="row">
+                            <div class="col-6">
+                                <input type="date" class="form-control" name="tag" id="tag" placeholder="Nombre..." />
+                            </div>
+                            <div class="col-6" align="left">
+                                <input type="submit" value="Search" class="form-control btn btn-primary " name="">
+                            </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        {% if userConsul != []: %}
+        <table class="table">
+            <thead>
+                <tr class="text-center">
+                    <th scope="col">#</th>
+                    <th scope="col">Fecha</th>
+                    <th scope="col">Hora</th>
+                    <th scope="col">Detalle</th>
+                    <th scope="col">Atendido</th>
+                    <th scope="col">Nombre</th>
+                    <th scope="col">Apellidos</th>
+                    <th colspan="3">Accion</th>
+                </tr>
+            </thead>
+            <tbody>
+
+                {% for item in userConsul.items %}
+                <tr class="text-center">
+                    <th scope="row">{{item.id}}</th>
+                    <td>{{item.fecha}}</td>
+                    <td>{{item.hora}}</td>
+                    <td>{{item.detalle}}</td>
+                    <td>{{item.atendido}}</td>
+                    <td>{{item.nombres}}</td>
+                    <td>{{item.apellidos}}</td>
+                    <td>
+                        <button type="button" class="btn btn-success"><a class="text-black" href="{{ url_for('adcons.controllerAdminClientUpdate', id=item.userid) }}">Atendido
+                        </a></button>
+                    </td>
+                    <td>
+                        <button type="button" class="btn btn-info text-black"><a class="text-black" href="{{ url_for('adcli.controllerAdminClientList', id=item.userid) }}">Usuario
+                        </a></button>
+                    </td>
+                    <td>
+                        <button type="button" class="btn btn-danger text-black"><a class="text-black" href="{{ url_for('adcons.controllerAdminClientDelete', id=item.userid) }}">Cerrar
+                        </a></button>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        <nav aria-label="Page navigation example">
+            <ul class="pagination">
+                {% if userConsul.has_prev %}
+                <li class="page-item"> <a class="page-link"
+                        href="{{ url_for('adcons.onGetAdminConsultas', page=userConsul.prev_num )}}">Previous</a>
+                </li>
+                {% else %}
+                <li class="page-item"> <a class="page link btn disabled" href="#">Previous</a></li>
+                {% endif %}
+                {% for page in userConsul.iter_pages(left_edge=3, right_edge=3) %}
+                {% if page %}
+
+                {% if page==userConsul.page %}
+                <li class="page-item active"><a class="page-link"
+                        href="{{ url_for('adcons.onGetAdminConsultas', page=page) }}">{{ page }}</a></li>
+                {% else %}
+                <li class="page-item"><a class="page-link"
+                        href="{{ url_for('adcons.onGetAdminConsultas', page=page) }}">{{ page }}</a></li>
+                {% endif %}
+
+                {% else %}
+                <li class="page-item disabled" id="example_ellipsis"><a href="#" class="page-link">…</a></li>
+                {% endif %}
+                {% endfor %}
+                {% if userConsul.has_next %}
+                <li class="page-item"> <a class="page-link"
+                        href="{{ url_for('adcons.onGetAdminConsultas', page=userConsul.next_num )}}">Next</a>
+                </li>
+                {% else %}
+                <li class="page-item"> <a class="page link btn disabled" href="#">Previous</a></li>
+                {% endif %}
+
+            </ul>
+        </nav>
+        {% else %}
+        <section class="">
+            <h2 class="text-center" style="padding: 10px; font-size: 5vw;">No existe datos</h2>
+        </section>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}
